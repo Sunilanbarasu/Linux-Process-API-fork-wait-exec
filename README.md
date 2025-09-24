@@ -17,6 +17,7 @@ Navigate to any Linux environment installed on the system or installed inside a 
 
 Write the C Program using Linux Process API - fork(), wait(), exec()
 
+
 ### Step 3:
 
 Test the C Program for the desired output. 
@@ -28,43 +29,92 @@ Test the C Program for the desired output.
 
 
 
+Forkcheck
+
+```
 
 
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+pid_t pid;
+
+pid = fork();  // create a new process
+
+if (pid < 0) {
+    printf("Fork failed!\n");
+}
+else if (pid == 0) {
+    // child process
+    printf("Hello from Child! My PID = %d, Parent PID = %d\n", getpid(), getppid());
+}
+else {
+    // parent process
+    printf("Hello from Parent! My PID = %d, Child PID = %d\n", getpid(), pid);
+}
+
+return 0;
+}
 
 
-
-
-
-
-
-##OUTPUT
-
-
-
-
-
-
-
-
+```
 ## C Program to execute Linux system commands using Linux API system calls exec() , exit() , wait() family
 
+waitcheck
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
+int main() {
+pid_t pid;
 
+pid = fork();
 
+if (pid == 0) {
+    // child process
+    printf("Child: My PID = %d\n", getpid());
+    sleep(2);
+    printf("Child: Finished work.\n");
+}
+else {
+    // parent process
+    printf("Parent: Waiting for child %d to finish...\n", pid);
+    wait(NULL);  // parent waits
+    printf("Parent: Child finished, now I continue.\n");
+}
 
+return 0;
+}
+```
+execcheck
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
+int main() {
+pid_t pid;
 
+pid = fork();
 
+if (pid == 0) {
+    // child process
+    printf("Child: Running ls -l using exec...\n");
+    execl("/bin/ls", "ls", "-l", NULL);
+    // If exec fails
+    printf("Exec failed!\n");
+}
+else {
+    // parent process
+    wait(NULL);  // wait for child
+    printf("Parent: Child finished exec.\n");
+}
 
-
-
-
-
-
-
-
-
-
+return 0;
+}
+```
 
 
 
@@ -77,12 +127,17 @@ Test the C Program for the desired output.
 
 
 
+forkcheck
 
+![alt text](../../1.png)
 
+waitcheck
 
+![alt text](../../2.png)
 
+execcheck
 
-
+![alt text](../../3.png)
 
 
 

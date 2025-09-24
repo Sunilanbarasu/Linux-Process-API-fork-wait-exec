@@ -128,15 +128,14 @@ return 0;
 
 
 forkcheck
-
-![alt text](../../1.png)
+![alt text](1.png)
 
 waitcheck
 
-![alt text](../../2.png)
+![alt text](2.png)
 
 execcheck
-
+![alt text](3.png)
 
 
 

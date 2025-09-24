@@ -137,7 +137,7 @@ waitcheck
 
 execcheck
 
-![alt text](../../3.png)
+
 
 
 
